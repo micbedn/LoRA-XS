@@ -3,15 +3,20 @@ import os
 
 
 def glue_main(args):
-    epoch = 10
+    #epoch = 10
+    epoch = 1
     task = args.target_task  # should be one of COLA, SST2 and QNLI tasks
     model_name = "roberta-large"
 
-    for rank in [4, 8, 12, 16, 20, 25]:
+    #for rank in [4, 8, 12, 16, 20, 25]:
+    for rank in [4]:
         results_dir = f'results_{task}_{rank}'
-        for lr in [1e-4, 5e-4, 1e-3]:
-            for cls_lr in [5e-4, 1e-3, 5e-3]:
-                for seed in [0, 1, 2, 3, 4]:
+        #for lr in [1e-4, 5e-4, 1e-3]:
+        for lr in [1e-4]:
+            #for cls_lr in [5e-4, 1e-3, 5e-3]:
+            for cls_lr in [5e-4]:
+                #for seed in [0, 1, 2, 3, 4]:
+                for seed in [0]:
                     run_str = f'''CUDA_VISIBLE_DEVICES="0" \
                        WANDB_DISABLED="true" \
                        python main_glue.py \
