@@ -69,11 +69,38 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
     :param adapter_name: options: 'default'
     :param reconstr_type: options: 'svd'
     """
-    half_init_dec = reconstruct_config['half_init_dec']
+    #peft_config = LoraConfig(
+    #    task_type="SEQ_CLS",
+    #    inference_mode=False,
+    #    r=model_args.lora_rank,
+    #    lora_alpha=model_args.lora_alpha,
+    #    lora_dropout=0.0,
+    #    target_modules=["query", "value", "attention.output.dense", "output.dense"],
+    #)
+    #model = get_peft_model(model, peft_config)
+
+    half_init_dec = reconstruct_config['half_init_dec'] 
+    #False
+
     replacement_module_random_init = reconstruct_config['replacement_module_random_init']
+    #False
+
     reconstruction_mode = reconstruct_config['reconstr_mode']
+    #'separated'
+
     lora_config = peft_config[adapter_name]
+    #LoraConfig(
+    #    task_type="SEQ_CLS",
+    #    inference_mode=False,
+    #    r=model_args.lora_rank,
+    #    lora_alpha=model_args.lora_alpha,
+    #    lora_dropout=0.0,
+    #    target_modules=["query", "value", "attention.output.dense", "output.dense"],
+    #)
+
     r_squared = reconstruct_config['r_squared']  # whether using r*r matrix between lora_A and lora_B or not
+    #True
+
     loaded_in_8bit = getattr(model, "is_loaded_in_8bit", False)
     if loaded_in_8bit and not is_bnb_available():
         raise ImportError(

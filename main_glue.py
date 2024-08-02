@@ -500,7 +500,9 @@ def main():
     ) as fp:
         json.dump(reconstr_config, fp)
 
-    find_and_initialize(
+    ### Added code
+    # !
+    find_and_initialize(#find and initialize the model
         model,
         peft_config_dict,
         adapter_name=adapter_name,
@@ -515,6 +517,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
+    # ta funkcja zmodyfikowana lub dodana
     def log_trainable_parameters(model, tb_writer):
         """
         Prints the number of trainable parameters in the model.
@@ -705,6 +708,9 @@ def main():
     else:
         data_collator = None
 
+    #klasyfikator 
+
+    #chyba modyfikowany optymalizator
     optimizer = torch.optim.AdamW(
         [
             {
@@ -730,6 +736,7 @@ def main():
         )
     )
     max_train_steps = training_args.num_train_epochs * num_update_steps_per_epoch
+    # scheduler dodany
     scheduler = get_linear_schedule_with_warmup(
         optimizer,
         num_warmup_steps=int(0.06 * max_train_steps),
