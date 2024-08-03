@@ -106,11 +106,14 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
         )
     is_target_modules_in_base_model = False
 
-    print()
-    print("model.named_modules():")
-    print(model.named_modules())
-    print()
+    # model.named_modules() returns an iterator over all modules in the network, yielding both the name of the module as well as the module itself.
     key_list = [key for key, _ in model.named_modules()]
+    print()
+    print("key_list")
+    print(key_list)
+    print()
+    print()
+    exit()
     assert (not isinstance(lora_config.target_modules, str))
     print("Iterating through model's specified modules to initialize A/B matrices.")
     for key in tqdm(key_list):
