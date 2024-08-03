@@ -109,8 +109,9 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
     # model.named_modules() returns an iterator over all modules in the network, yielding both the name of the module as well as the module itself.
     key_list = [key for key, _ in model.named_modules()]
     print()
-    print("key_list")
-    print(key_list)
+    print("key_list aka model.named_modules()")
+    for i in key_list:
+        print(i)
     print()
     print()
     print()
