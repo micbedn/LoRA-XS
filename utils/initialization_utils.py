@@ -79,14 +79,11 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
     #)
     #model = get_peft_model(model, peft_config)
 
-    half_init_dec = reconstruct_config['half_init_dec'] 
-    #False
+    half_init_dec = reconstruct_config['half_init_dec'] #False
 
-    replacement_module_random_init = reconstruct_config['replacement_module_random_init']
-    #False
+    replacement_module_random_init = reconstruct_config['replacement_module_random_init'] #False
 
-    reconstruction_mode = reconstruct_config['reconstr_mode']
-    #'separated'
+    reconstruction_mode = reconstruct_config['reconstr_mode'] #'separated'
 
     lora_config = peft_config[adapter_name]
     #LoraConfig(
@@ -108,6 +105,11 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
             "You can install it with `pip install bitsandbytes`."
         )
     is_target_modules_in_base_model = False
+
+    print()
+    print("model.named_modules():")
+    print(model.named_modules())
+    print()
     key_list = [key for key, _ in model.named_modules()]
     assert (not isinstance(lora_config.target_modules, str))
     print("Iterating through model's specified modules to initialize A/B matrices.")
