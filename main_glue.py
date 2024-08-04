@@ -284,8 +284,8 @@ def main():
         lora_alpha=model_args.lora_alpha,
         lora_dropout=0.0,
         #target_modules=["query", "value", "attention.output.dense", "output.dense"],
-        target_modules=["query"],
-        #target_modules=["layer.0.attention.self.query"],
+        #target_modules=["query"],
+        target_modules=["layer.0.attention.self.query", "layer.1.attention.self.query"],
         #target_modules=["layer.23.attention.self.query"],
     )
 
