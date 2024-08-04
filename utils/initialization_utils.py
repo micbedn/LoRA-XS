@@ -20,9 +20,18 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
     print(f"reconstruct_config: {reconstruct_config}")
     cfg = reconstruct_config[type]
     print(f"cfg: {cfg}")
+
+    rank = cfg['rank']
     print(f"cfg[rank]: {cfg['rank']}")
+    print(f"rank: {rank}")
+
+    #change rank in layer 0
+    if module_name == 'roberta.encoder.layer.0.attention.self.query.weight':
+        rank = 8
+
     if type == 'svd':
-        reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
+        #reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
+        reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), rank,
                                                             cfg['n_iter'],
                                                             cfg['random_state'])
         final_enc = torch.tensor(enc, dtype=weight.dtype, device=weight.device)
