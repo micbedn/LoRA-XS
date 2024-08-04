@@ -283,7 +283,8 @@ def main():
         r=model_args.lora_rank,
         lora_alpha=model_args.lora_alpha,
         lora_dropout=0.0,
-        target_modules=["query", "value", "attention.output.dense", "output.dense"],
+        #target_modules=["query", "value", "attention.output.dense", "output.dense"],
+        target_modules=["query"],
     )
 
     now = datetime.datetime.now()

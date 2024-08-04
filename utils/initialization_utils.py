@@ -117,7 +117,7 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
     print()
     print("lora_config.target_modules:")
     print(lora_config.target_modules)
-    exit()
+    #exit()
     assert (not isinstance(lora_config.target_modules, str))
     print("Iterating through model's specified modules to initialize A/B matrices.")
     for key in tqdm(key_list):
