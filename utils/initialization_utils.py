@@ -41,6 +41,10 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
         raise NotImplementedError(f"{type} is currently not supported.")
     
     cfg['rank'] = rank
+    print("final_enc.shape: ")
+    print(final_enc.shape)
+    print("final_dec.shape: ")
+    print(final_dec.shape)
     return final_enc, final_dec
 
 
