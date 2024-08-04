@@ -27,7 +27,8 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
 
     #change rank in layer 0
     if module_name == 'base_model.model.roberta.encoder.layer.0.attention.self.query':
-        rank = 8
+        #rank = 8
+        cfg['rank'] = 8
         print(f"rank in {module_name} changed to:{rank}")
 
     if type == 'svd':
@@ -39,6 +40,8 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
         final_dec = torch.tensor(dec, dtype=weight.dtype, device=weight.device)
     else:
         raise NotImplementedError(f"{type} is currently not supported.")
+    
+    cfg['rank'] = rank
     return final_enc, final_dec
 
 
