@@ -115,8 +115,7 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
     print()
     print()
     print()
-    print("lora_config.target_modules:")
-    print(lora_config.target_modules)
+    print(f"lora_config.target_modules: {lora_config.target_modules}")
     #exit()
     assert (not isinstance(lora_config.target_modules, str))
     print("Iterating through model's specified modules to initialize A/B matrices.")
@@ -126,9 +125,9 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
             if not is_target_modules_in_base_model:
                 is_target_modules_in_base_model = True
             _, target, target_name = _get_submodules(model, key)
+            print(f"key: {key}")
             print(f"target_name: {target_name}")
             print(f"target: {target}")
-            print(f"key: {key}")
             print("_:", _)
 
             if reconstruction_mode == 'separated':
