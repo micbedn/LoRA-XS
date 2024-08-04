@@ -186,4 +186,3 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
             f"Target modules {lora_config.target_modules} not found in the base model. "
             f"Please check the target modules and try again."
         )
-    exit()
