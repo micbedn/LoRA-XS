@@ -32,8 +32,8 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
         print(f"rank in {module_name} changed to:{rank}")
 
     if type == 'svd':
-        #reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
-        reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), rank,
+        reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
+        #reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), rank,
                                                             cfg['n_iter'],
                                                             cfg['random_state'])
         final_enc = torch.tensor(enc, dtype=weight.dtype, device=weight.device)
