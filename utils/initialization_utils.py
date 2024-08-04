@@ -126,6 +126,10 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
             if not is_target_modules_in_base_model:
                 is_target_modules_in_base_model = True
             _, target, target_name = _get_submodules(model, key)
+            print(f"target_name: {target_name}")
+            print(f"target: {target}")
+            print(f"key: {key}")
+            print("_:", _)
 
             if reconstruction_mode == 'separated':
                 replacement_encoder_weight, replacement_decoder_weight = get_replacement_module(weight=target.weight.T,
