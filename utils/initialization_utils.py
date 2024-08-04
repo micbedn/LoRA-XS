@@ -13,7 +13,14 @@ from .svd_utils import get_linear_rec_svd
 
 
 def get_replacement_module(weight, module_name, type, writer, reconstruct_config):
+    print("get_replacement_module:")
+    print(f"module_name(key): {module_name}")
+    print(f"weight.shape: {weight.shape}")
+    print(f"type: {type}")
+    print(f"reconstruct_config: {reconstruct_config}")
     cfg = reconstruct_config[type]
+    print(f"cfg: {cfg}")
+    print(f"cfg[rank]: {cfg['rank']}")
     if type == 'svd':
         reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
                                                             cfg['n_iter'],
@@ -169,3 +176,4 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
             f"Target modules {lora_config.target_modules} not found in the base model. "
             f"Please check the target modules and try again."
         )
+    exit()
