@@ -26,8 +26,9 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
     print(f"rank: {rank}")
 
     #change rank in layer 0
-    if module_name == 'roberta.encoder.layer.0.attention.self.query.weight':
+    if module_name == 'base_model.model.roberta.encoder.layer.0.attention.self.query':
         rank = 8
+        print(f"rank in {module_name} changed to:{rank}")
 
     if type == 'svd':
         #reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
