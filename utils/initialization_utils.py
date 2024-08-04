@@ -27,7 +27,7 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
 
     #change rank in layer 23 
     # endswith layer.0.attention.self.query
-    if module_name.endswith('layer.23.attention.self.query'):
+    if module_name.endswith('layer.0.attention.self.query'):
         cfg['rank'] = 20
         print(f"rank in {module_name} changed to:{cfg['rank']}")
 
