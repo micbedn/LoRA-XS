@@ -21,19 +21,17 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
     cfg = reconstruct_config[type]
     print(f"cfg: {cfg}")
 
-    rank = cfg['rank']
+    default_rank = cfg['rank']
     print(f"cfg[rank]: {cfg['rank']}")
-    print(f"rank: {rank}")
+    print(f"rank: {default_rank}")
 
     #change rank in layer 0
     if module_name == 'base_model.model.roberta.encoder.layer.0.attention.self.query':
-        #rank = 8
         cfg['rank'] = 8
-        print(f"rank in {module_name} changed to:{rank}")
+        print(f"rank in {module_name} changed to:{cfg['rank']}")
 
     if type == 'svd':
         reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
-        #reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), rank,
                                                             cfg['n_iter'],
                                                             cfg['random_state'])
         final_enc = torch.tensor(enc, dtype=weight.dtype, device=weight.device)
@@ -41,7 +39,7 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
     else:
         raise NotImplementedError(f"{type} is currently not supported.")
     
-    cfg['rank'] = rank
+    cfg['rank'] = default_rank
     return final_enc, final_dec
 
 
