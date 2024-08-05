@@ -280,8 +280,8 @@ def main():
     peft_config = LoraConfig(
         task_type="SEQ_CLS",
         inference_mode=False,
-        #r=model_args.lora_rank,
-        r=8,
+        r=model_args.lora_rank,
+        #r=8,
         lora_alpha=model_args.lora_alpha,
         lora_dropout=0.0,
         #target_modules=["query", "value", "attention.output.dense", "output.dense"],

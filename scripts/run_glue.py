@@ -10,7 +10,7 @@ def glue_main(args):
     model_name = "roberta-base"
 
     #for rank in [4, 8, 12, 16, 20, 25]:
-    for rank in [4]:
+    for rank in [8]:
         results_dir = f'results_{task}_{rank}'
         #for lr in [1e-4, 5e-4, 1e-3]:
         for lr in [1e-4]:
