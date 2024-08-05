@@ -186,6 +186,15 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
 
             else:
                 raise NotImplementedError("The only supported mode is: separated.")
+            _, target, target_name = _get_submodules(model, key)
+            print("AFTER MODIFICATION")
+            print(f"key: {key}")
+            print(f"target_name: {target_name}")
+            print(f"target: {target}")
+            print("_:", _)
+            print()
+            print()
+            print()
 
     if not is_target_modules_in_base_model:
         raise ValueError(
