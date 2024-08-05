@@ -288,6 +288,8 @@ def main():
         target_modules=["layer.0.attention.self.query"],
         #target_modules=["layer.23.attention.self.query"],
     )
+    print("peft_config", peft_config)
+    print("peft_config.r", peft_config.r)
 
     now = datetime.datetime.now()
     now.strftime("%Y-%m-%dT%H:%M:%S") + ("-%02d" % (now.microsecond / 10000))
@@ -505,6 +507,8 @@ def main():
 
     ### Added code
     # !
+    print("model:", model)
+    print("model.named_modules()", model.named_modules())
     find_and_initialize(#find and initialize the model
         model,
         peft_config_dict,
@@ -513,6 +517,8 @@ def main():
         writer=tb_writer,
         reconstruct_config=reconstr_config,
     )
+    print("model:", model)
+    print("model.named_modules()", model.named_modules())
 
     for param in model.parameters():
         param.data = param.data.contiguous()
