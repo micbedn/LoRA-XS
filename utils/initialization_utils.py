@@ -175,8 +175,11 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
                         target.get_delta_weight = types.MethodType(get_delta_weight, target)
                         replace_module_weights(target.lora_A.default, replacement_encoder_weight.T)
 
-                        target.default_lora_latent_mapping = torch.nn.Linear(lora_config.r, lora_config.r, bias=False)
+                        if key == "base_model.model.roberta.encoder.layer.1.attention.self.query":
+                            lora_config.r = 8
                         #target.default_lora_latent_mapping = torch.nn.Linear(8, 8, bias=False)
+
+                        target.default_lora_latent_mapping = torch.nn.Linear(lora_config.r, lora_config.r, bias=False)
 
                         init_module_weights(target.default_lora_latent_mapping, sigma=0.00001)
                         target.default_lora_latent_mapping.to(target.lora_A.default.weight.device)
