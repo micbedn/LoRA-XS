@@ -6,7 +6,8 @@ def glue_main(args):
     #epoch = 10
     epoch = 1
     task = args.target_task  # should be one of COLA, SST2 and QNLI tasks
-    model_name = "roberta-large"
+    #model_name = "roberta-large"
+    model_name = "roberta-base"
 
     #for rank in [4, 8, 12, 16, 20, 25]:
     for rank in [4]:
