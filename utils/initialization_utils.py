@@ -186,6 +186,7 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
 
             else:
                 raise NotImplementedError("The only supported mode is: separated.")
+            print("lora config.r:", lora_config.r)
             print("AFTER MODIFICATION")
             print(f"key: {key}")
             print(f"target_name: {target_name}")

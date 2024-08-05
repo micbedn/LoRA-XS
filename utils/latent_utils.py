@@ -50,7 +50,7 @@ def get_delta_weight(self, adapter) -> torch.Tensor:
 def forward_latent(self, x: torch.Tensor):
     previous_dtype = x.dtype
 
-    print("forward_latent: ", self.r)
+    #print("forward_latent: ", self.r) # tu nie ma bledu
 
     if self.active_adapter[0] not in self.lora_A.keys():
         return F.linear(x, transpose(self.weight, self.fan_in_fan_out), bias=self.bias)
