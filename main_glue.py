@@ -281,7 +281,7 @@ def main():
         task_type="SEQ_CLS",
         inference_mode=False,
         #r=model_args.lora_rank,
-        r=5,
+        r=8,
         lora_alpha=model_args.lora_alpha,
         lora_dropout=0.0,
         #target_modules=["query", "value", "attention.output.dense", "output.dense"],
@@ -292,7 +292,7 @@ def main():
         #rank_pattern = {"model.roberta.encoder.layer.0.attention.self.query": 8}, # to nie zamienia z default na wskazane 8
         #rank_pattern = {0: 8}, # to nie zamienia z default na wskazane 8
         #rank_pattern = {"query": 8}, # zmienia na 8 ale blad gdzie indziej
-        rank_pattern = {"self.query": 8}, # zmienia na 8 ale blad gdzie indziej
+        #rank_pattern = {"self.query": 8}, # zmienia na 8 ale blad gdzie indziej
     )
     print("peft_config", peft_config)
     print("peft_config.r", peft_config.r)
