@@ -288,7 +288,8 @@ def main():
         #target_modules=["query"],
         target_modules=["layer.0.attention.self.query"],
         #target_modules=["layer.23.attention.self.query"],
-        rank_pattern = {"base_model.model.roberta.encoder.layer.0.attention.self.query": 8},
+        #rank_pattern = {"base_model.model.roberta.encoder.layer.0.attention.self.query": 8}, # to nie zamienia z default na wskazane 8
+        rank_pattern = {"model.roberta.encoder.layer.0.attention.self.query": 8}, # to nie zamienia z default na wskazane 8
     )
     print("peft_config", peft_config)
     print("peft_config.r", peft_config.r)
