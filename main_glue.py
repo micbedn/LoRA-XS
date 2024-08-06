@@ -311,60 +311,71 @@ def main():
         #rank_pattern = {0: 8}, # to nie zamienia z default na wskazane 8
         #rank_pattern = {"query": 8}, # zmienia na 8 ale blad gdzie indziej
 
-        rank_pattern = {
-            "layer.0.attention.self.query": s(1),
-            "layer.1.attention.self.query": s(2),
-            "layer.2.attention.self.query": s(3),
-            "layer.3.attention.self.query": s(4),
-            "layer.4.attention.self.query": s(5),
-            "layer.5.attention.self.query": s(6),
-            "layer.6.attention.self.query": s(7),
-            "layer.7.attention.self.query": s(8),
-            "layer.8.attention.self.query": s(9),
-            "layer.9.attention.self.query": s(10),
-            "layer.10.attention.self.query": s(11),
-            "layer.11.attention.self.query": s(12),
+        rank_pattern = {}
+
+        for layer in range(12):
+
+            rank_pattern[f"layer.{layer}.attention.self.query"] = s(layer+1)
+            rank_pattern[f"layer.{layer}.attention.self.value"] = s(layer+1)
+            rank_pattern[f"layer.{layer}.attention.output.dense"] = s(layer+1)
+            rank_pattern[f"layer.{layer}.output.dense"] = s(layer+1)
 
 
-            "layer.0.attention.self.value":  s(1),
-            "layer.1.attention.self.value":  s(2),
-            "layer.2.attention.self.value":  s(3),
-            "layer.3.attention.self.value":  s(4),
-            "layer.4.attention.self.value":  s(5),
-            "layer.5.attention.self.value":  s(6),
-            "layer.6.attention.self.value":  s(7),
-            "layer.7.attention.self.value":  s(8),
-            "layer.8.attention.self.value":  s(9),
-            "layer.9.attention.self.value":  s(10),
-            "layer.10.attention.self.value": s(11),
-            "layer.11.attention.self.value": s(12),
 
-            "layer.0.attention.output.dense":  s(1),
-            "layer.1.attention.output.dense":  s(2),
-            "layer.2.attention.output.dense":  s(3),
-            "layer.3.attention.output.dense":  s(4),
-            "layer.4.attention.output.dense":  s(5),
-            "layer.5.attention.output.dense":  s(6),
-            "layer.6.attention.output.dense":  s(7),
-            "layer.7.attention.output.dense":  s(8),
-            "layer.8.attention.output.dense":  s(9),
-            "layer.9.attention.output.dense":  s(10),
-            "layer.10.attention.output.dense": s(11),
-            "layer.11.attention.output.dense": s(12),
 
-            "layer.0.output.dense":  s(1),
-            "layer.1.output.dense":  s(2),
-            "layer.2.output.dense":  s(3),
-            "layer.3.output.dense":  s(4),
-            "layer.4.output.dense":  s(5),
-            "layer.5.output.dense":  s(6),
-            "layer.6.output.dense":  s(7),
-            "layer.7.output.dense":  s(8),
-            "layer.8.output.dense":  s(9),
-            "layer.9.output.dense":  s(10),
-            "layer.10.output.dense": s(11),
-            "layer.11.output.dense": s(12),
-            },
+        #    "layer.0.attention.self.query": s(1),
+        #    "layer.1.attention.self.query": s(2),
+        #    "layer.2.attention.self.query": s(3),
+        #    "layer.3.attention.self.query": s(4),
+        #    "layer.4.attention.self.query": s(5),
+        #    "layer.5.attention.self.query": s(6),
+        #    "layer.6.attention.self.query": s(7),
+        #    "layer.7.attention.self.query": s(8),
+        #    "layer.8.attention.self.query": s(9),
+        #    "layer.9.attention.self.query": s(10),
+        #    "layer.10.attention.self.query": s(11),
+        #    "layer.11.attention.self.query": s(12),
+
+
+        #    "layer.0.attention.self.value":  s(1),
+        #    "layer.1.attention.self.value":  s(2),
+        #    "layer.2.attention.self.value":  s(3),
+        #    "layer.3.attention.self.value":  s(4),
+        #    "layer.4.attention.self.value":  s(5),
+        #    "layer.5.attention.self.value":  s(6),
+        #    "layer.6.attention.self.value":  s(7),
+        #    "layer.7.attention.self.value":  s(8),
+        #    "layer.8.attention.self.value":  s(9),
+        #    "layer.9.attention.self.value":  s(10),
+        #    "layer.10.attention.self.value": s(11),
+        #    "layer.11.attention.self.value": s(12),
+
+        #    "layer.0.attention.output.dense":  s(1),
+        #    "layer.1.attention.output.dense":  s(2),
+        #    "layer.2.attention.output.dense":  s(3),
+        #    "layer.3.attention.output.dense":  s(4),
+        #    "layer.4.attention.output.dense":  s(5),
+        #    "layer.5.attention.output.dense":  s(6),
+        #    "layer.6.attention.output.dense":  s(7),
+        #    "layer.7.attention.output.dense":  s(8),
+        #    "layer.8.attention.output.dense":  s(9),
+        #    "layer.9.attention.output.dense":  s(10),
+        #    "layer.10.attention.output.dense": s(11),
+        #    "layer.11.attention.output.dense": s(12),
+
+        #    "layer.0.output.dense":  s(1),
+        #    "layer.1.output.dense":  s(2),
+        #    "layer.2.output.dense":  s(3),
+        #    "layer.3.output.dense":  s(4),
+        #    "layer.4.output.dense":  s(5),
+        #    "layer.5.output.dense":  s(6),
+        #    "layer.6.output.dense":  s(7),
+        #    "layer.7.output.dense":  s(8),
+        #    "layer.8.output.dense":  s(9),
+        #    "layer.9.output.dense":  s(10),
+        #    "layer.10.output.dense": s(11),
+        #    "layer.11.output.dense": s(12),
+        #    },
 
 
         #rank_pattern = {
