@@ -197,7 +197,13 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
                         target.get_delta_weight = types.MethodType(get_delta_weight, target)
                         replace_module_weights(target.lora_A.default, replacement_encoder_weight.T)
 
+
                         #if key.endswith("layer.1.attention.self.query"):
+                        start_pos = key.find("layer")
+                        print("start_pos:")
+                        print(start_pos)
+                        print("key[start_pos:]:")
+                        print(key[start_pos:])
                         if key == "base_model.model.roberta.encoder.layer.1.attention.self.query":
                             lora_config.r = 2
                         elif key == "base_model.model.roberta.encoder.layer.2.attention.self.query":
