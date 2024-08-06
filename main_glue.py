@@ -285,7 +285,16 @@ def main():
         lora_dropout=0.0,
         #target_modules=["query", "value", "attention.output.dense", "output.dense"],
         #target_modules=["query"],
-        target_modules=["layer.0.attention.self.query", "layer.1.attention.self.query"],
+        target_modules=[
+            "layer.0.attention.self.query", 
+            "layer.0.attention.self.value", 
+            "layer.0.attention.output.dense", 
+            "layer.0.output.dense", 
+            "layer.1.attention.self.query", 
+            "layer.1.attention.self.value", 
+            "layer.1.attention.output.dense", 
+            "layer.1.output.dense", 
+            ],
         #target_modules=["layer.23.attention.self.query"],
         #rank_pattern = {"base_model.model.roberta.encoder.layer.0.attention.self.query": 8}, # to nie zamienia z default na wskazane 8
         #rank_pattern = {"model.roberta.encoder.layer.0.attention.self.query": 8}, # to nie zamienia z default na wskazane 8
