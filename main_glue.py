@@ -303,7 +303,7 @@ def main():
         #rank_pattern = {0: 8}, # to nie zamienia z default na wskazane 8
         #rank_pattern = {"query": 8}, # zmienia na 8 ale blad gdzie indziej
 
-        rank_pattern = {"1.attention.self.query": 8}, # zmienia na 8 ale blad gdzie indziej
+        rank_pattern = {"layer.1.attention.self.query": 8}, # zmienia na 8 ale blad gdzie indziej
     )
     print("peft_config", peft_config)
     print("peft_config.r", peft_config.r)

@@ -175,7 +175,7 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
                         target.get_delta_weight = types.MethodType(get_delta_weight, target)
                         replace_module_weights(target.lora_A.default, replacement_encoder_weight.T)
 
-                        if key == "base_model.model.roberta.encoder.layer.1.attention.self.query":
+                        if key.endswith("layer.1.attention.self.query"):
                             lora_config.r = 8
                         #target.default_lora_latent_mapping = torch.nn.Linear(8, 8, bias=False)
 
@@ -198,9 +198,6 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
             print(f"target_name: {target_name}")
             print(f"target: {target}")
             print("_:", _)
-            print()
-            print()
-            print()
             _, target, target_name = _get_submodules(model, key)
             print("AFTER _get_submodules")
             print(f"key: {key}")
