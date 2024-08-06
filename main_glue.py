@@ -303,19 +303,34 @@ def main():
         #rank_pattern = {0: 8}, # to nie zamienia z default na wskazane 8
         #rank_pattern = {"query": 8}, # zmienia na 8 ale blad gdzie indziej
 
+        #rank_pattern = {
+        #    "layer.0.attention.self.query": 1,
+        #    "layer.1.attention.self.query": 2,
+        #    "layer.2.attention.self.query": 3,
+        #    "layer.3.attention.self.query": 4,
+        #    "layer.4.attention.self.query": 5,
+        #    "layer.5.attention.self.query": 6,
+        #    "layer.6.attention.self.query": 7,
+        #    "layer.7.attention.self.query": 8,
+        #    "layer.8.attention.self.query": 9,
+        #    "layer.9.attention.self.query": 10,
+        #    "layer.10.attention.self.query": 11,
+        #    "layer.11.attention.self.query": 12,
+        #    #"base_model.model.roberta.encoder.layer.1.attention.self.query": 8, #nie zamienia model out_fetaure... (ale nie ma bledu)
+        #    },
         rank_pattern = {
-            "layer.0.attention.self.query": 1,
-            "layer.1.attention.self.query": 2,
-            "layer.2.attention.self.query": 3,
-            "layer.3.attention.self.query": 4,
-            "layer.4.attention.self.query": 5,
-            "layer.5.attention.self.query": 6,
-            "layer.6.attention.self.query": 7,
-            "layer.7.attention.self.query": 8,
-            "layer.8.attention.self.query": 9,
-            "layer.9.attention.self.query": 10,
-            "layer.10.attention.self.query": 11,
-            "layer.11.attention.self.query": 12,
+            "layer.0.attention.self.query": 12,
+            "layer.1.attention.self.query": 11,
+            "layer.2.attention.self.query": 10,
+            "layer.3.attention.self.query": 9,
+            "layer.4.attention.self.query": 8,
+            "layer.5.attention.self.query": 7,
+            "layer.6.attention.self.query": 6,
+            "layer.7.attention.self.query": 5,
+            "layer.8.attention.self.query": 4,
+            "layer.9.attention.self.query": 3,
+            "layer.10.attention.self.query": 2,
+            "layer.11.attention.self.query": 1,
             #"base_model.model.roberta.encoder.layer.1.attention.self.query": 8, #nie zamienia model out_fetaure... (ale nie ma bledu)
             },
     )

@@ -25,31 +25,6 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
     print(f"cfg[rank]: {cfg['rank']}")
     print(f"rank: {rank}")
 
-    ##change rank in layer 0
-    #if module_name == 'base_model.model.roberta.encoder.layer.1.attention.self.query':
-    #    cfg['rank'] = 2
-    #    #print(f"rank in {module_name} changed to:{cfg['rank']}")
-    #elif module_name == 'base_model.model.roberta.encoder.layer.2.attention.self.query':
-    #    cfg['rank'] = 3
-    #elif module_name == 'base_model.model.roberta.encoder.layer.3.attention.self.query':
-    #    cfg['rank'] = 4
-    #elif module_name == 'base_model.model.roberta.encoder.layer.4.attention.self.query':
-    #    cfg['rank'] = 5
-    #elif module_name == 'base_model.model.roberta.encoder.layer.5.attention.self.query':
-    #    cfg['rank'] = 6
-    #elif module_name == 'base_model.model.roberta.encoder.layer.6.attention.self.query':
-    #    cfg['rank'] = 7
-    #elif module_name == 'base_model.model.roberta.encoder.layer.7.attention.self.query':
-    #    cfg['rank'] = 8
-    #elif module_name == 'base_model.model.roberta.encoder.layer.8.attention.self.query':
-    #    cfg['rank'] = 9
-    #elif module_name == 'base_model.model.roberta.encoder.layer.9.attention.self.query':
-    #    cfg['rank'] = 10
-    #elif module_name == 'base_model.model.roberta.encoder.layer.10.attention.self.query':
-    #    cfg['rank'] = 11
-    #elif module_name == 'base_model.model.roberta.encoder.layer.11.attention.self.query':
-    #    cfg['rank'] = 12
-
 
 
     layer_pos = module_name.find("layer")
