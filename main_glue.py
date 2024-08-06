@@ -304,6 +304,7 @@ def main():
         #rank_pattern = {"query": 8}, # zmienia na 8 ale blad gdzie indziej
 
         rank_pattern = {
+            "layer.0.attention.self.query": 1,
             "layer.1.attention.self.query": 2,
             "layer.2.attention.self.query": 3,
             "layer.3.attention.self.query": 4,
