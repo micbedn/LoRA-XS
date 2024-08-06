@@ -16,8 +16,8 @@ def glue_main(args):
         for lr in [1e-4]:
             #for cls_lr in [5e-4, 1e-3, 5e-3]:
             for cls_lr in [5e-4]:
-                #for seed in [0, 1, 2, 3, 4]:
-                for seed in [0]:
+                for seed in [0, 1, 2, 3, 4]:
+                #for seed in [0]:
                     run_str = f'''CUDA_VISIBLE_DEVICES="0" \
                        WANDB_DISABLED="true" \
                        python main_glue.py \

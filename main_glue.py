@@ -288,6 +288,7 @@ def main():
         target_modules=[
             "query",
             "value",
+            "key",
             #"layer.0.attention.self.query", 
             ##"layer.0.attention.self.value", 
             ##"layer.0.attention.output.dense", 
@@ -331,6 +332,19 @@ def main():
             "layer.9.attention.self.value": 10,
             "layer.10.attention.self.value": 11,
             "layer.11.attention.self.value": 12,
+
+            #"layer.0.attention.self.key": 1,
+            #"layer.1.attention.self.key": 2,
+            #"layer.2.attention.self.key": 3,
+            #"layer.3.attention.self.key": 4,
+            #"layer.4.attention.self.key": 5,
+            #"layer.5.attention.self.key": 6,
+            #"layer.6.attention.self.key": 7,
+            #"layer.7.attention.self.key": 8,
+            #"layer.8.attention.self.key": 9,
+            #"layer.9.attention.self.key": 10,
+            #"layer.10.attention.self.key": 11,
+            #"layer.11.attention.self.key": 12,
             #"base_model.model.roberta.encoder.layer.1.attention.self.query": 8, #nie zamienia model out_fetaure... (ale nie ma bledu)
             },
         #rank_pattern = {
