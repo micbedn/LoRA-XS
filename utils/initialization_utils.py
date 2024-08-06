@@ -207,16 +207,6 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
             print(f"target_name: {target_name}")
             print(f"target: {target}")
             print("_:", _)
-            _, target, target_name = _get_submodules(model, key)
-            print("AFTER _get_submodules")
-            print(f"key: {key}")
-            print(f"target_name: {target_name}")
-            print(f"target: {target}")
-            print("_:", _)
-            print()
-            print()
-            print()
-            print()
 
     if not is_target_modules_in_base_model:
         raise ValueError(
