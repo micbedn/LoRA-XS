@@ -305,10 +305,10 @@ def main():
         #rank_pattern = {"query": 8}, # zmienia na 8 ale blad gdzie indziej
 
         rank_pattern = {
-            #"layer.1.attention.self.query": 8,
-            "base_model.model.roberta.encoder.layer.1.attention.self.query": 8,
-            #"layer.2.attention.self.query": 9,
-            }, # zmienia na 8 ale blad gdzie indziej
+            "layer.1.attention.self.query": 8,
+            "layer.2.attention.self.query": 9,
+            #"base_model.model.roberta.encoder.layer.1.attention.self.query": 8, #nie zamienia model out_fetaure... (ale nie ma bledu)
+            },
     )
     print("peft_config", peft_config)
     print("peft_config.r", peft_config.r)

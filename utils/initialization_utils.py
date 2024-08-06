@@ -29,6 +29,9 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
     if module_name == 'base_model.model.roberta.encoder.layer.1.attention.self.query':
         cfg['rank'] = 8
         print(f"rank in {module_name} changed to:{cfg['rank']}")
+    elif module_name == 'base_model.model.roberta.encoder.layer.2.attention.self.query':
+        cfg['rank'] = 9
+        print(f"rank in {module_name} changed to:{cfg['rank']}")
 
     if type == 'svd':
         reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
@@ -180,6 +183,8 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
                         #if key.endswith("layer.1.attention.self.query"):
                         if key == "base_model.model.roberta.encoder.layer.1.attention.self.query":
                             lora_config.r = 8
+                        elif key == "base_model.model.roberta.encoder.layer.2.attention.self.query":
+                            lora_config.r = 9
                         else:
                             lora_config.r = 4 #reset to default
 
@@ -208,6 +213,7 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
             print(f"target_name: {target_name}")
             print(f"target: {target}")
             print("_:", _)
+            print()
             print()
             print()
             print()
