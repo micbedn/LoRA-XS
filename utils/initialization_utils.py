@@ -180,6 +180,8 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
                         #if key.endswith("layer.1.attention.self.query"):
                         if key == "base_model.model.roberta.encoder.layer.1.attention.self.query":
                             lora_config.r = 8
+                        else:
+                            lora_config.r = 4 #reset to default
                         #target.default_lora_latent_mapping = torch.nn.Linear(8, 8, bias=False)
 
                         target.default_lora_latent_mapping = torch.nn.Linear(lora_config.r, lora_config.r, bias=False)
