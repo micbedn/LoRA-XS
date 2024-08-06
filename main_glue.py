@@ -288,7 +288,7 @@ def main():
         target_modules=[
             "query",
             "value",
-            "key",
+            #"key",
             #"layer.0.attention.self.query", 
             ##"layer.0.attention.self.value", 
             ##"layer.0.attention.output.dense", 
