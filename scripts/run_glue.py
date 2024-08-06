@@ -3,8 +3,8 @@ import os
 
 
 def glue_main(args):
-    #epoch = 10
-    epoch = 1
+    epoch = 10
+    #epoch = 1
     task = args.target_task  # should be one of COLA, SST2 and QNLI tasks
     #model_name = "roberta-large"
     model_name = "roberta-base"
@@ -14,6 +14,11 @@ def glue_main(args):
 
     #--per_device_train_batch_size 64 \
     # 5365MiB / 24564MiB 
+
+    #--per_device_train_batch_size 128 \
+    #9729MiB / 24564MiB 
+
+    # same speed as 32??
 
     #for rank in [4, 8, 12, 16, 20, 25]:
     for rank in [1]:
@@ -34,7 +39,7 @@ def glue_main(args):
                          --do_eval \
                          --seed {seed}\
                          --max_seq_length 128 \
-                         --per_device_train_batch_size 128 \
+                         --per_device_train_batch_size 32 \
                          --learning_rate {lr} \
                          --cls_learning_rate {cls_lr} \
                          --num_train_epochs {epoch} \
