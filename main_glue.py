@@ -277,8 +277,9 @@ def main():
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
     def s(l):
-        return l**2
+        #return l**2
         #return l
+        return 40
 
     rank_pattern = {}
 
@@ -302,15 +303,6 @@ def main():
             "value",
             "attention.output.dense",
             "output.dense",
-            #"key",
-            #"layer.0.attention.self.query", 
-            ##"layer.0.attention.self.value", 
-            ##"layer.0.attention.output.dense", 
-            ##"layer.0.output.dense", 
-            #"layer.1.attention.self.query", 
-            ##"layer.1.attention.self.value", 
-            ##"layer.1.attention.output.dense", 
-            ##"layer.1.output.dense", 
             ],
 
         #target_modules=["layer.23.attention.self.query"],
