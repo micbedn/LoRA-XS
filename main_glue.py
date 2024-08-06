@@ -277,7 +277,8 @@ def main():
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
     def s(l):
-        return l**2
+        #return l**2
+        return 1
 
     ### Added code
     peft_config = LoraConfig(
