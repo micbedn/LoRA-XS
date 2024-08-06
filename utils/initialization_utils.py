@@ -139,6 +139,8 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
     print()
     print()
     print(f"lora_config.target_modules: {lora_config.target_modules}")
+    print(f"lora_config: {lora_config}")
+    print(f"lora_config.rank_pattern: {lora_config.rank_pattern}")
     #exit()
     assert (not isinstance(lora_config.target_modules, str))
     print("Iterating through model's specified modules to initialize A/B matrices.")
