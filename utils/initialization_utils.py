@@ -12,7 +12,7 @@ from .latent_utils import get_delta_weight, forward_latent
 from .svd_utils import get_linear_rec_svd
 
 
-def get_replacement_module(weight, module_name, type, writer, reconstruct_config):
+def get_replacement_module(weight, module_name, type, writer, reconstruct_config, lora_config):
     print("get_replacement_module:")
     print(f"module_name(key): {module_name}")
     print(f"weight.shape: {weight.shape}")
@@ -25,30 +25,38 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
     print(f"cfg[rank]: {cfg['rank']}")
     print(f"rank: {rank}")
 
-    #change rank in layer 0
-    if module_name == 'base_model.model.roberta.encoder.layer.1.attention.self.query':
-        cfg['rank'] = 2
-        #print(f"rank in {module_name} changed to:{cfg['rank']}")
-    elif module_name == 'base_model.model.roberta.encoder.layer.2.attention.self.query':
-        cfg['rank'] = 3
-    elif module_name == 'base_model.model.roberta.encoder.layer.3.attention.self.query':
-        cfg['rank'] = 4
-    elif module_name == 'base_model.model.roberta.encoder.layer.4.attention.self.query':
-        cfg['rank'] = 5
-    elif module_name == 'base_model.model.roberta.encoder.layer.5.attention.self.query':
-        cfg['rank'] = 6
-    elif module_name == 'base_model.model.roberta.encoder.layer.6.attention.self.query':
-        cfg['rank'] = 7
-    elif module_name == 'base_model.model.roberta.encoder.layer.7.attention.self.query':
-        cfg['rank'] = 8
-    elif module_name == 'base_model.model.roberta.encoder.layer.8.attention.self.query':
-        cfg['rank'] = 9
-    elif module_name == 'base_model.model.roberta.encoder.layer.9.attention.self.query':
-        cfg['rank'] = 10
-    elif module_name == 'base_model.model.roberta.encoder.layer.10.attention.self.query':
-        cfg['rank'] = 11
-    elif module_name == 'base_model.model.roberta.encoder.layer.11.attention.self.query':
-        cfg['rank'] = 12
+    ##change rank in layer 0
+    #if module_name == 'base_model.model.roberta.encoder.layer.1.attention.self.query':
+    #    cfg['rank'] = 2
+    #    #print(f"rank in {module_name} changed to:{cfg['rank']}")
+    #elif module_name == 'base_model.model.roberta.encoder.layer.2.attention.self.query':
+    #    cfg['rank'] = 3
+    #elif module_name == 'base_model.model.roberta.encoder.layer.3.attention.self.query':
+    #    cfg['rank'] = 4
+    #elif module_name == 'base_model.model.roberta.encoder.layer.4.attention.self.query':
+    #    cfg['rank'] = 5
+    #elif module_name == 'base_model.model.roberta.encoder.layer.5.attention.self.query':
+    #    cfg['rank'] = 6
+    #elif module_name == 'base_model.model.roberta.encoder.layer.6.attention.self.query':
+    #    cfg['rank'] = 7
+    #elif module_name == 'base_model.model.roberta.encoder.layer.7.attention.self.query':
+    #    cfg['rank'] = 8
+    #elif module_name == 'base_model.model.roberta.encoder.layer.8.attention.self.query':
+    #    cfg['rank'] = 9
+    #elif module_name == 'base_model.model.roberta.encoder.layer.9.attention.self.query':
+    #    cfg['rank'] = 10
+    #elif module_name == 'base_model.model.roberta.encoder.layer.10.attention.self.query':
+    #    cfg['rank'] = 11
+    #elif module_name == 'base_model.model.roberta.encoder.layer.11.attention.self.query':
+    #    cfg['rank'] = 12
+
+
+
+    layer_pos = module_name.find("layer")
+    if module_name[layer_pos:] in lora_config.rank_pattern.keys():
+        cfg['rank'] = lora_config.rank_pattern[module_name[layer_pos:]]
+    else:
+        cfg['rank'] = 1 #reset to default
 
     if type == 'svd':
         reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
@@ -180,7 +188,8 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
                                                                                                 module_name=key,
                                                                                                 type=reconstr_type,
                                                                                                 writer=writer,
-                                                                                                reconstruct_config=reconstruct_config)
+                                                                                                reconstruct_config=reconstruct_config,
+                                                                                                lora_config=lora_config)
 
                 if not isinstance(target, peft.tuners.lora.Linear):
                     raise NotImplementedError('Only initialization for peft.tuners.lora.Linear type is implemented.')
@@ -198,34 +207,9 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
                         replace_module_weights(target.lora_A.default, replacement_encoder_weight.T)
 
 
-                        #if key.endswith("layer.1.attention.self.query"):
-                        start_pos = key.find("layer")
-                        print("start_pos:")
-                        print(start_pos)
-                        print("key[start_pos:]:")
-                        print(key[start_pos:])
-                        if key == "base_model.model.roberta.encoder.layer.1.attention.self.query":
-                            lora_config.r = 2
-                        elif key == "base_model.model.roberta.encoder.layer.2.attention.self.query":
-                            lora_config.r = 3
-                        elif key == "base_model.model.roberta.encoder.layer.3.attention.self.query":
-                            lora_config.r = 4
-                        elif key == "base_model.model.roberta.encoder.layer.4.attention.self.query":
-                            lora_config.r = 5
-                        elif key == "base_model.model.roberta.encoder.layer.5.attention.self.query":
-                            lora_config.r = 6
-                        elif key == "base_model.model.roberta.encoder.layer.6.attention.self.query":
-                            lora_config.r = 7
-                        elif key == "base_model.model.roberta.encoder.layer.7.attention.self.query":
-                            lora_config.r = 8
-                        elif key == "base_model.model.roberta.encoder.layer.8.attention.self.query":
-                            lora_config.r = 9
-                        elif key == "base_model.model.roberta.encoder.layer.9.attention.self.query":
-                            lora_config.r = 10
-                        elif key == "base_model.model.roberta.encoder.layer.10.attention.self.query":
-                            lora_config.r = 11
-                        elif key == "base_model.model.roberta.encoder.layer.11.attention.self.query":
-                            lora_config.r = 12
+                        layer_pos = key.find("layer")
+                        if key[layer_pos:] in lora_config.rank_pattern.keys():
+                            lora.config.r = lora_config.rank_pattern[key[layer_pos:]]
                         else:
                             lora_config.r = 1 #reset to default
 
