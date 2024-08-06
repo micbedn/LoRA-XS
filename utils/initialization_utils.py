@@ -209,7 +209,7 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
 
                         layer_pos = key.find("layer")
                         if key[layer_pos:] in lora_config.rank_pattern.keys():
-                            lora.config.r = lora_config.rank_pattern[key[layer_pos:]]
+                            lora_config.r = lora_config.rank_pattern[key[layer_pos:]]
                         else:
                             lora_config.r = 1 #reset to default
 
