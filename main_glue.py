@@ -280,6 +280,15 @@ def main():
         #return l**2
         return 1
 
+    rank_pattern = {}
+
+    for layer in range(12):
+
+        rank_pattern[f"layer.{layer}.attention.self.query"] = s(layer+1)
+        rank_pattern[f"layer.{layer}.attention.self.value"] = s(layer+1)
+        rank_pattern[f"layer.{layer}.attention.output.dense"] = s(layer+1)
+        rank_pattern[f"layer.{layer}.output.dense"] = s(layer+1)
+
     ### Added code
     peft_config = LoraConfig(
         task_type="SEQ_CLS",
@@ -310,15 +319,8 @@ def main():
         #rank_pattern = {"model.roberta.encoder.layer.0.attention.self.query": 8}, # to nie zamienia z default na wskazane 8
         #rank_pattern = {0: 8}, # to nie zamienia z default na wskazane 8
         #rank_pattern = {"query": 8}, # zmienia na 8 ale blad gdzie indziej
+        rank_pattern=rank_pattern,
 
-        rank_pattern = {}
-
-        for layer in range(12):
-
-            rank_pattern[f"layer.{layer}.attention.self.query"] = s(layer+1)
-            rank_pattern[f"layer.{layer}.attention.self.value"] = s(layer+1)
-            rank_pattern[f"layer.{layer}.attention.output.dense"] = s(layer+1)
-            rank_pattern[f"layer.{layer}.output.dense"] = s(layer+1)
 
 
 
