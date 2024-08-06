@@ -12,6 +12,8 @@ def glue_main(args):
     #--per_device_train_batch_size 32 \
     # 3GB/24GB rtx 4090
 
+    #--per_device_train_batch_size 64 \
+    # 5365MiB / 24564MiB 
 
     #for rank in [4, 8, 12, 16, 20, 25]:
     for rank in [1]:
@@ -20,8 +22,8 @@ def glue_main(args):
         for lr in [1e-4]:
             #for cls_lr in [5e-4, 1e-3, 5e-3]:
             for cls_lr in [5e-4]:
-                for seed in [0, 1, 2, 3, 4]:
-                #for seed in [0]:
+                #for seed in [0, 1, 2, 3, 4]:
+                for seed in [0]:
                     run_str = f'''CUDA_VISIBLE_DEVICES="0" \
                        WANDB_DISABLED="true" \
                        python main_glue.py \
@@ -32,7 +34,7 @@ def glue_main(args):
                          --do_eval \
                          --seed {seed}\
                          --max_seq_length 128 \
-                         --per_device_train_batch_size 64 \
+                         --per_device_train_batch_size 128 \
                          --learning_rate {lr} \
                          --cls_learning_rate {cls_lr} \
                          --num_train_epochs {epoch} \
