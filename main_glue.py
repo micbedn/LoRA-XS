@@ -287,14 +287,15 @@ def main():
         #target_modules=["query"],
 
         target_modules=[
-            "layer.0.attention.self.query", 
-            #"layer.0.attention.self.value", 
-            #"layer.0.attention.output.dense", 
-            #"layer.0.output.dense", 
-            "layer.1.attention.self.query", 
-            #"layer.1.attention.self.value", 
-            #"layer.1.attention.output.dense", 
-            #"layer.1.output.dense", 
+            "query",
+            #"layer.0.attention.self.query", 
+            ##"layer.0.attention.self.value", 
+            ##"layer.0.attention.output.dense", 
+            ##"layer.0.output.dense", 
+            #"layer.1.attention.self.query", 
+            ##"layer.1.attention.self.value", 
+            ##"layer.1.attention.output.dense", 
+            ##"layer.1.output.dense", 
             ],
 
         #target_modules=["layer.23.attention.self.query"],
