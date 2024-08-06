@@ -6,8 +6,8 @@ def glue_main(args):
     epoch = 10
     #epoch = 1
     task = args.target_task  # should be one of COLA, SST2 and QNLI tasks
-    #model_name = "roberta-large"
-    model_name = "roberta-base"
+    model_name = "roberta-large"
+    #model_name = "roberta-base"
 
     #--per_device_train_batch_size 32 \
     # 3GB/24GB rtx 4090
