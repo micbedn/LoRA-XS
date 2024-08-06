@@ -9,6 +9,10 @@ def glue_main(args):
     #model_name = "roberta-large"
     model_name = "roberta-base"
 
+    #--per_device_train_batch_size 32 \
+    # 3GB/24GB rtx 4090
+
+
     #for rank in [4, 8, 12, 16, 20, 25]:
     for rank in [1]:
         results_dir = f'results_{task}_{rank}'
@@ -28,7 +32,7 @@ def glue_main(args):
                          --do_eval \
                          --seed {seed}\
                          --max_seq_length 128 \
-                         --per_device_train_batch_size 32 \
+                         --per_device_train_batch_size 64 \
                          --learning_rate {lr} \
                          --cls_learning_rate {cls_lr} \
                          --num_train_epochs {epoch} \
