@@ -278,12 +278,13 @@ def main():
 
     def s(l):
         #return l**2
+        return 4
         #return l
-        return 25
+        #return 25
 
     rank_pattern = {}
 
-    for layer in range(24):
+    for layer in range(12):
         rank_pattern[f"layer.{layer}.attention.self.query"] = s(layer+1)
         rank_pattern[f"layer.{layer}.attention.self.value"] = s(layer+1)
         rank_pattern[f"layer.{layer}.attention.output.dense"] = s(layer+1)
