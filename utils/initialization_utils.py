@@ -28,14 +28,13 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
 
 
     layer_pos = module_name.find("layer")
+    rank = cfg['rank']
     if module_name[layer_pos:] in lora_config.rank_pattern.keys():
-        cfg['rank'] = lora_config.rank_pattern[module_name[layer_pos:]]
-    else:
-        cfg['rank'] = 1 #reset to default
+        rank = lora_config.rank_pattern[module_name[layer_pos:]]
 
     if type == 'svd':
-        reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
-        #reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), rank,
+        #reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
+        reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), rank,
                                                             cfg['n_iter'],
                                                             cfg['random_state'])
         final_enc = torch.tensor(enc, dtype=weight.dtype, device=weight.device)
@@ -43,7 +42,7 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
     else:
         raise NotImplementedError(f"{type} is currently not supported.")
     
-    cfg['rank'] = rank
+    #cfg['rank'] = rank
     print("final_enc.shape: ")
     print(final_enc.shape)
     print("final_dec.shape: ")
@@ -183,12 +182,11 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
 
 
                         layer_pos = key.find("layer")
+                        rank = lora_config.r
                         if key[layer_pos:] in lora_config.rank_pattern.keys():
-                            lora_config.r = lora_config.rank_pattern[key[layer_pos:]]
-                        else:
-                            lora_config.r = 1 #reset to default
+                            rank = lora_config.rank_pattern[key[layer_pos:]]
 
-                        target.default_lora_latent_mapping = torch.nn.Linear(lora_config.r, lora_config.r, bias=False)
+                        target.default_lora_latent_mapping = torch.nn.Linear(rank, rank, bias=False)
 
                         init_module_weights(target.default_lora_latent_mapping, sigma=0.00001)
                         target.default_lora_latent_mapping.to(target.lora_A.default.weight.device)
