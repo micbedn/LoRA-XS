@@ -278,8 +278,8 @@ def main():
 
     def s(l):
         #return l**2
-        return 4
-        #return l
+        #return 4
+        return l
         #return 25
 
     rank_pattern = {}
