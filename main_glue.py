@@ -280,7 +280,8 @@ def main():
         #return l
         #return 4
         #return l**2
-        return 12 - (l-1)
+        #return 12 - (l-1)
+        return 1+round(12/(l))
         #return 25
 
     rank_pattern = {}
