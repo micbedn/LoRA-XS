@@ -277,9 +277,10 @@ def main():
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
     def s(l):
-        return l**2
-        #return 4
         #return l
+        #return 4
+        return l**2
+        return 12 - (l-1)
         #return 25
 
     rank_pattern = {}
