@@ -280,7 +280,7 @@ def main():
     # TODO handle case when r==0
     l_pattern = {
         "query": [
-            3,
+            4,
             3,
             4,
             4,
@@ -291,49 +291,13 @@ def main():
             8,
             7,
             7,
-            3 
+            4 
         ],
         "value": [
-            3,
-            3,
-            4,
-            4,
-            6,
-            6,
-            6,
-            7,
-            8,
-            7,
-            7,
-            3 
         ],
         "attention.output.dense": [
-            3,
-            3,
-            4,
-            4,
-            6,
-            6,
-            6,
-            7,
-            8,
-            7,
-            7,
-            3 
         ],
         "output.dense": [
-            3,
-            3,
-            4,
-            4,
-            6,
-            6,
-            6,
-            7,
-            8,
-            7,
-            7,
-            3 
         ]
     }
     def s(l, target_module):
