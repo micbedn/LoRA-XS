@@ -278,30 +278,74 @@ def main():
 
     ### Added code
     # TODO handle case when r==0
-    l_pattern = [
-        2,
-        3,
-        3,
-        4,
-        5,
-        5,
-        5,
-        4,
-        2,
-        2,
-        1,
-        2
-    ]
-    def s(l):
+    l_pattern = {
+        "query": [
+            1,
+            2,
+            3,
+            2,
+            4,
+            5,
+            4,
+            2,
+            2,
+            1,
+            2,
+            3
+        ],
+        "value": [
+            2,
+            3,
+            2,
+            4,
+            4,
+            3,
+            4,
+            4,
+            2,
+            2,
+            1,
+            3
+        ],
+        "attention.output.dense": [
+            2,
+            2,
+            5,
+            6,
+            5,
+            7,
+            5,
+            6,
+            3,
+            2,
+            1,
+            1
+        ],
+        "output.dense": [
+            4,
+            3,
+            2,
+            4,
+            6,
+            6,
+            5,
+            4,
+            2,
+            1,
+            1,
+            1
+        ]
+    }
+    def s(l, target_module):
         return l_pattern[l]
 
     rank_pattern = {}
 
     for layer in range(12):
-        rank_pattern[f"layer.{layer}.attention.self.query"] = s(layer)
-        rank_pattern[f"layer.{layer}.attention.self.value"] = s(layer)
-        rank_pattern[f"layer.{layer}.attention.output.dense"] = s(layer)
-        rank_pattern[f"layer.{layer}.output.dense"] = s(layer)
+        rank_pattern[f"layer.{layer}.attention.self.query"] = s(layer, "query")
+        rank_pattern[f"layer.{layer}.attention.self.value"] = s(layer, "value")
+        rank_pattern[f"layer.{layer}.attention.output.dense"] = s(layer, "attention.output.dense")
+        rank_pattern[f"layer.{layer}.output.dense"] = s(layer, "output.dense")
 
     peft_config = LoraConfig(
         task_type="SEQ_CLS",
