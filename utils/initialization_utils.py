@@ -26,14 +26,12 @@ def get_replacement_module(weight, module_name, type, writer, reconstruct_config
     print(f"rank: {rank}")
 
 
-
     layer_pos = module_name.find("layer")
     rank = cfg['rank']
     if module_name[layer_pos:] in lora_config.rank_pattern.keys():
         rank = lora_config.rank_pattern[module_name[layer_pos:]]
 
     if type == 'svd':
-        #reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), cfg['rank'],
         reconstructed_matrix, enc, dec = get_linear_rec_svd(weight.cpu().detach().numpy(), rank,
                                                             cfg['n_iter'],
                                                             cfg['random_state'])
@@ -94,15 +92,6 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
     :param adapter_name: options: 'default'
     :param reconstr_type: options: 'svd'
     """
-    #peft_config = LoraConfig(
-    #    task_type="SEQ_CLS",
-    #    inference_mode=False,
-    #    r=model_args.lora_rank,
-    #    lora_alpha=model_args.lora_alpha,
-    #    lora_dropout=0.0,
-    #    target_modules=["query", "value", "attention.output.dense", "output.dense"],
-    #)
-    #model = get_peft_model(model, peft_config)
 
     half_init_dec = reconstruct_config['half_init_dec'] #False
 
@@ -111,14 +100,6 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
     reconstruction_mode = reconstruct_config['reconstr_mode'] #'separated'
 
     lora_config = peft_config[adapter_name]
-    #LoraConfig(
-    #    task_type="SEQ_CLS",
-    #    inference_mode=False,
-    #    r=model_args.lora_rank,
-    #    lora_alpha=model_args.lora_alpha,
-    #    lora_dropout=0.0,
-    #    target_modules=["query", "value", "attention.output.dense", "output.dense"],
-    #)
 
     r_squared = reconstruct_config['r_squared']  # whether using r*r matrix between lora_A and lora_B or not
     #True
@@ -139,11 +120,9 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
         print(i)
     print()
     print()
-    print()
     print(f"lora_config.target_modules: {lora_config.target_modules}")
     print(f"lora_config: {lora_config}")
     print(f"lora_config.rank_pattern: {lora_config.rank_pattern}")
-    #exit()
     assert (not isinstance(lora_config.target_modules, str))
     print("Iterating through model's specified modules to initialize A/B matrices.")
     for key in tqdm(key_list):
@@ -180,14 +159,12 @@ def find_and_initialize(model, peft_config, adapter_name, reconstr_type, reconst
                         target.get_delta_weight = types.MethodType(get_delta_weight, target)
                         replace_module_weights(target.lora_A.default, replacement_encoder_weight.T)
 
-
                         layer_pos = key.find("layer")
                         rank = lora_config.r
                         if key[layer_pos:] in lora_config.rank_pattern.keys():
                             rank = lora_config.rank_pattern[key[layer_pos:]]
 
                         target.default_lora_latent_mapping = torch.nn.Linear(rank, rank, bias=False)
-
                         init_module_weights(target.default_lora_latent_mapping, sigma=0.00001)
                         target.default_lora_latent_mapping.to(target.lora_A.default.weight.device)
 

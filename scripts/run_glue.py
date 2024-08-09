@@ -9,19 +9,6 @@ def glue_main(args):
     #model_name = "roberta-large"
     model_name = "roberta-base"
 
-    #--per_device_train_batch_size 32 \
-    # 3GB/24GB rtx 4090
-
-    #--per_device_train_batch_size 64 \
-    # 5365MiB / 24564MiB 
-
-    #--per_device_train_batch_size 128 \
-    #9729MiB / 24564MiB 
-
-    # same speed as 32??
-
-    #--per_device_train_batch_size 256 \
-
     #for rank in [4, 8, 12, 16, 20, 25]:
     for rank in [1]:
         results_dir = f'results_{task}_{rank}'
@@ -33,8 +20,6 @@ def glue_main(args):
             #for cls_lr in [5e-4, 1e-3, 5e-3]:
 
             for cls_lr in [1e-3]:
-
-                #for seed in [0, 1, 2, 3, 4]:
 
                 for seed in [0]:
                     run_str = f'''CUDA_VISIBLE_DEVICES="0" \

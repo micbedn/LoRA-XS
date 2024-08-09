@@ -276,31 +276,38 @@ def main():
     else:
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
+    ### Added code
+    l_pattern = [
+        0,
+        0,
+        2,
+        1,
+        1,
+        2,
+        1,
+        2,
+        0,
+        1,
+        1,
+        1
+    ]
     def s(l):
-        #return l
-        #return 4
-        #return l**2
-        #return 12 - (l-1)
-        return 1+round(12/(l))
-        #return 25
+        return l_pattern[l]
 
     rank_pattern = {}
 
     for layer in range(12):
-        rank_pattern[f"layer.{layer}.attention.self.query"] = s(layer+1)
-        rank_pattern[f"layer.{layer}.attention.self.value"] = s(layer+1)
-        rank_pattern[f"layer.{layer}.attention.output.dense"] = s(layer+1)
-        rank_pattern[f"layer.{layer}.output.dense"] = s(layer+1)
+        rank_pattern[f"layer.{layer}.attention.self.query"] = s(layer)
+        rank_pattern[f"layer.{layer}.attention.self.value"] = s(layer)
+        rank_pattern[f"layer.{layer}.attention.output.dense"] = s(layer)
+        rank_pattern[f"layer.{layer}.output.dense"] = s(layer)
 
-    ### Added code
     peft_config = LoraConfig(
         task_type="SEQ_CLS",
         inference_mode=False,
         r=model_args.lora_rank,
         lora_alpha=model_args.lora_alpha,
         lora_dropout=0.0,
-        #target_modules=["query", "value", "attention.output.dense", "output.dense"],
-
         target_modules=[
             "query",
             "value",
@@ -308,87 +315,7 @@ def main():
             "output.dense",
             ],
 
-        #target_modules=["layer.23.attention.self.query"],
-        #rank_pattern = {"base_model.model.roberta.encoder.layer.0.attention.self.query": 8}, # to nie zamienia z default na wskazane 8
-        #rank_pattern = {"model.roberta.encoder.layer.0.attention.self.query": 8}, # to nie zamienia z default na wskazane 8
-        #rank_pattern = {0: 8}, # to nie zamienia z default na wskazane 8
-        #rank_pattern = {"query": 8}, # zmienia na 8 ale blad gdzie indziej
         rank_pattern=rank_pattern,
-
-
-
-
-
-        #    "layer.0.attention.self.query": s(1),
-        #    "layer.1.attention.self.query": s(2),
-        #    "layer.2.attention.self.query": s(3),
-        #    "layer.3.attention.self.query": s(4),
-        #    "layer.4.attention.self.query": s(5),
-        #    "layer.5.attention.self.query": s(6),
-        #    "layer.6.attention.self.query": s(7),
-        #    "layer.7.attention.self.query": s(8),
-        #    "layer.8.attention.self.query": s(9),
-        #    "layer.9.attention.self.query": s(10),
-        #    "layer.10.attention.self.query": s(11),
-        #    "layer.11.attention.self.query": s(12),
-
-
-        #    "layer.0.attention.self.value":  s(1),
-        #    "layer.1.attention.self.value":  s(2),
-        #    "layer.2.attention.self.value":  s(3),
-        #    "layer.3.attention.self.value":  s(4),
-        #    "layer.4.attention.self.value":  s(5),
-        #    "layer.5.attention.self.value":  s(6),
-        #    "layer.6.attention.self.value":  s(7),
-        #    "layer.7.attention.self.value":  s(8),
-        #    "layer.8.attention.self.value":  s(9),
-        #    "layer.9.attention.self.value":  s(10),
-        #    "layer.10.attention.self.value": s(11),
-        #    "layer.11.attention.self.value": s(12),
-
-        #    "layer.0.attention.output.dense":  s(1),
-        #    "layer.1.attention.output.dense":  s(2),
-        #    "layer.2.attention.output.dense":  s(3),
-        #    "layer.3.attention.output.dense":  s(4),
-        #    "layer.4.attention.output.dense":  s(5),
-        #    "layer.5.attention.output.dense":  s(6),
-        #    "layer.6.attention.output.dense":  s(7),
-        #    "layer.7.attention.output.dense":  s(8),
-        #    "layer.8.attention.output.dense":  s(9),
-        #    "layer.9.attention.output.dense":  s(10),
-        #    "layer.10.attention.output.dense": s(11),
-        #    "layer.11.attention.output.dense": s(12),
-
-        #    "layer.0.output.dense":  s(1),
-        #    "layer.1.output.dense":  s(2),
-        #    "layer.2.output.dense":  s(3),
-        #    "layer.3.output.dense":  s(4),
-        #    "layer.4.output.dense":  s(5),
-        #    "layer.5.output.dense":  s(6),
-        #    "layer.6.output.dense":  s(7),
-        #    "layer.7.output.dense":  s(8),
-        #    "layer.8.output.dense":  s(9),
-        #    "layer.9.output.dense":  s(10),
-        #    "layer.10.output.dense": s(11),
-        #    "layer.11.output.dense": s(12),
-        #    },
-
-
-        #rank_pattern = {
-        #    "layer.0.attention.self.query": 12,
-        #    "layer.1.attention.self.query": 11,
-        #    "layer.2.attention.self.query": 10,
-        #    "layer.3.attention.self.query": 9,
-        #    "layer.4.attention.self.query": 8,
-        #    "layer.5.attention.self.query": 7,
-        #    "layer.6.attention.self.query": 6,
-        #    "layer.7.attention.self.query": 5,
-        #    "layer.8.attention.self.query": 4,
-        #    "layer.9.attention.self.query": 3,
-        #    "layer.10.attention.self.query": 2,
-        #    "layer.11.attention.self.query": 1,
-        #    #"base_model.model.roberta.encoder.layer.1.attention.self.query": 8, #nie zamienia model out_fetaure... (ale nie ma bledu)
-        #    },
     )
     print("peft_config", peft_config)
     print("peft_config.r", peft_config.r)
