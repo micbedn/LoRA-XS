@@ -279,21 +279,21 @@ def main():
     ### Added code
     # TODO handle case when r==0
     l_pattern = [
-        0,
-        0,
+        2,
+        3,
+        3,
+        4,
+        5,
+        5,
+        5,
+        4,
+        2,
         2,
         1,
-        1,
-        2,
-        1,
-        2,
-        0,
-        1,
-        1,
-        1
+        2
     ]
     def s(l):
-        return l_pattern[l]+1
+        return l_pattern[l]
 
     rank_pattern = {}
 
