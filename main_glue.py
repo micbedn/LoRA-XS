@@ -337,7 +337,8 @@ def main():
         ]
     }
     def s(l, target_module):
-        return l_pattern[l]
+        target_module = l_pattern[target_module]
+        return target_module[l]
 
     rank_pattern = {}
 
