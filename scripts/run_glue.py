@@ -3,7 +3,7 @@ import os
 
 
 def glue_main(args):
-    epoch = 5
+    epoch = 10
     #epoch = 1
     task = args.target_task  # should be one of COLA, SST2 and QNLI tasks
     #model_name = "roberta-large"
