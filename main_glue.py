@@ -277,6 +277,7 @@ def main():
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
     ### Added code
+    # TODO handle case when r==0
     l_pattern = [
         0,
         0,
@@ -292,7 +293,7 @@ def main():
         1
     ]
     def s(l):
-        return l_pattern[l]
+        return l_pattern[l]+1
 
     rank_pattern = {}
 
